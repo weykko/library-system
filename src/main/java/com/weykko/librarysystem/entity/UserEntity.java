@@ -21,14 +21,17 @@ public class UserEntity {
     @Column(nullable = false)
     private String lastName;
 
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(unique = true, nullable = false)
+    private String phoneNumber;
+
     @Column(nullable = false)
     private String password;
-
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;

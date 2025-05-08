@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(c -> c
                         .requestMatchers(PUBLIC_URI).permitAll()
                         .requestMatchers(ADMIN_URI).hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(USER_URI).hasAuthority("ROLE_SUPPORT")
+                        .requestMatchers(USER_URI).hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                         .anyRequest().authenticated()
                 ).httpBasic(
                         httpBasicConfigurer -> {
@@ -47,29 +47,5 @@ public class SecurityConfig {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        return new InMemoryUserDetailsManager(
-                User.builder()
-                        .username("admin")
-                        .password("admin")
-                        .roles("ADMIN")
-                        .passwordEncoder(passwordEncoder::encode)
-                        .build(),
-                User.builder()
-                        .username("support")
-                        .password("support")
-                        .roles("SUPPORT")
-                        .passwordEncoder(passwordEncoder::encode)
-                        .build(),
-                User.builder()
-                        .username("user")
-                        .password("user")
-                        .roles("USER")
-                        .passwordEncoder(passwordEncoder::encode)
-                        .build()
-        );
     }
 }
