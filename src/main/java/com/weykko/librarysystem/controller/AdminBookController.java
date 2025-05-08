@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/admin/books")
 public class AdminBookController {
 
-    @GetMapping
-    public void getBooks() {
-
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createBook(@RequestBody BookRequest bookRequest) {

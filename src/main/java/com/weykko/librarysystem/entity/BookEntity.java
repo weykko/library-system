@@ -1,5 +1,6 @@
 package com.weykko.librarysystem.entity;
 
+import com.weykko.librarysystem.entity.enums.BookStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,8 +28,8 @@ public class BookEntity {
     @Column(unique = true)
     private String isbn;
 
-//    @Enumerated(EnumType.STRING)
-//    private BookStatus status = BookStatus.AVAILABLE;
+    @Enumerated(EnumType.STRING)
+    private BookStatus status = BookStatus.AVAILABLE;
 
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
