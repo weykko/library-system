@@ -23,7 +23,7 @@ public class AdminUserController {
     }
 
     @PutMapping("/{id}")
-    public List<BookResponse> updateUser(@PathVariable Long id) {
+    public List<BookResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest) {
 
     }
 
