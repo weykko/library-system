@@ -1,7 +1,9 @@
 package com.weykko.librarysystem.controller;
 
 import com.weykko.librarysystem.dto.auth.LoginRequest;
+import com.weykko.librarysystem.dto.auth.LoginResponse;
 import com.weykko.librarysystem.dto.auth.RegisterRequest;
+import com.weykko.librarysystem.dto.auth.RegisterResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

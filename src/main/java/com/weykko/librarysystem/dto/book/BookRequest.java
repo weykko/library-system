@@ -12,4 +12,6 @@ public class BookRequest {
     private String author;
 
     private LocalDate releaseDate;
+
+    private String isbn;
 }

@@ -15,19 +15,19 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "first_name")
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "last_name")
     private String lastName;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String email;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, name = "phone_number")
     private String phoneNumber;
 
     @Column(nullable = false)
@@ -35,9 +35,6 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
-    @Column(name = "is_active")
-    private boolean isActive = true;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<LoanEntity> loans = new ArrayList<>();

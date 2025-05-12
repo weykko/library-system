@@ -2,6 +2,7 @@ package com.weykko.librarysystem.controller;
 
 import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
+import com.weykko.librarysystem.dto.book.DeleteBookResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class AdminBookController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBook(@PathVariable Long id) {
+    public DeleteBookResponse deleteBook(@PathVariable Long id) {
 
     }
 }
