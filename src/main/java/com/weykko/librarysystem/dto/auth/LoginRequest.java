@@ -1,4 +1,4 @@
-package com.weykko.librarysystem.dto;
+package com.weykko.librarysystem.dto.auth;
 
 import lombok.Data;
 

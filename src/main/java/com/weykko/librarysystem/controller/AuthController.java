@@ -1,7 +1,7 @@
 package com.weykko.librarysystem.controller;
 
-import com.weykko.librarysystem.dto.LoginRequest;
-import com.weykko.librarysystem.dto.RegisterRequest;
+import com.weykko.librarysystem.dto.auth.LoginRequest;
+import com.weykko.librarysystem.dto.auth.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +13,10 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void register(@RequestBody RegisterRequest registerRequest) {
+    public RegisterResponse register(@RequestBody RegisterRequest request) {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginRequest loginRequest) {
+    public LoginResponse login(@RequestBody LoginRequest request) {
     }
 }

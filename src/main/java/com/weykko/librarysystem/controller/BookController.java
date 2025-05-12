@@ -1,6 +1,6 @@
 package com.weykko.librarysystem.controller;
 
-import com.weykko.librarysystem.dto.BookResponse;
+import com.weykko.librarysystem.dto.book.BookResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
