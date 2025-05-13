@@ -20,8 +20,8 @@ public class BookEntity {
     @Column(nullable = false)
     private String author;
 
-    @Column(name = "publication_date")
-    private LocalDate publicationDate;
+    @Column(name = "release_date")
+    private LocalDate releaseDate;
 
     private String isbn;
 
