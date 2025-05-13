@@ -3,6 +3,7 @@ package com.weykko.librarysystem.service;
 import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
 import com.weykko.librarysystem.entity.BookEntity;
+import com.weykko.librarysystem.exception.BookNotFoundException;
 import com.weykko.librarysystem.repository.BookRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ public class BookService {
 
     @Transactional
     public BookResponse createBook(BookRequest request) {
+        //TODO: реализовать проверку на наличие аналогичной книги в библиотеке
+
         BookEntity bookEntity = new BookEntity();
 
         bookEntity.setTitle(request.getTitle());
@@ -31,7 +34,7 @@ public class BookService {
     @Transactional
     public BookResponse updateBook(Long id, BookRequest request) {
         BookEntity bookEntity = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Книга с таким ID не найдена"));
+                .orElseThrow(() -> new BookNotFoundException(id));
 
         bookEntity.setTitle(request.getTitle());
         bookEntity.setAuthor(request.getAuthor());
@@ -46,7 +49,7 @@ public class BookService {
     @Transactional
     public void deleteBook(Long id) {
         BookEntity book = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Книга с таким ID не найдена"));
+                .orElseThrow(() -> new BookNotFoundException(id));
 
         bookRepository.delete(book);
     }
