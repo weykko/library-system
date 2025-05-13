@@ -23,12 +23,12 @@ public class AdminBookController {
 
     @PutMapping("/{id}")
     public BookResponse updateBook(@PathVariable Long id, @RequestBody BookRequest request) {
-
+        return bookService.updateBook(id, request);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public DeleteBookResponse deleteBook(@PathVariable Long id) {
-
+    public void deleteBook(@PathVariable Long id) {
+        bookService.deleteBook(id);
     }
 }

@@ -16,3 +16,4 @@ public class RegisterResponse {
 
     private String phoneNumber;
 }
+

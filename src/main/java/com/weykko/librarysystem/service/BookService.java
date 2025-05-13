@@ -25,6 +25,33 @@ public class BookService {
 
         bookRepository.save(bookEntity);
 
+        return createBookResponse(bookEntity);
+    }
+
+    @Transactional
+    public BookResponse updateBook(Long id, BookRequest request) {
+        BookEntity bookEntity = bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Книга с таким ID не найдена"));
+
+        bookEntity.setTitle(request.getTitle());
+        bookEntity.setAuthor(request.getAuthor());
+        bookEntity.setReleaseDate(request.getReleaseDate());
+        bookEntity.setIsbn(request.getIsbn());
+
+        bookRepository.save(bookEntity);
+
+        return createBookResponse(bookEntity);
+    }
+
+    @Transactional
+    public void deleteBook(Long id) {
+        BookEntity book = bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Книга с таким ID не найдена"));
+
+        bookRepository.delete(book);
+    }
+
+    private BookResponse createBookResponse(BookEntity bookEntity) {
         return new BookResponse(
                 bookEntity.getId(),
                 bookEntity.getTitle(),
