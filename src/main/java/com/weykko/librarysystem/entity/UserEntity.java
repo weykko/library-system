@@ -2,10 +2,7 @@ package com.weykko.librarysystem.entity;
 
 import com.weykko.librarysystem.entity.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.*;

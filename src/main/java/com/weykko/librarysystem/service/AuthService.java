@@ -2,7 +2,6 @@ package com.weykko.librarysystem.service;
 
 import com.weykko.librarysystem.dto.auth.RegisterRequest;
 import com.weykko.librarysystem.dto.auth.RegisterResponse;
-import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.repository.UserRepository;
 import jakarta.transaction.Transactional;
