@@ -4,6 +4,8 @@ import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
 
 public interface BookService {
+    BookResponse getBook(Long id);
+
     BookResponse createBook(BookRequest request);
 
     BookResponse updateBook(Long id, BookRequest request);

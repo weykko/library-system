@@ -15,6 +15,11 @@ import java.util.List;
 @RequestMapping("/api/admin/loans")
 public class AdminLoanController {
 
+    @GetMapping
+    public List<LoanResponse> getLoans() {
+
+    }
+
     @PostMapping("/borrow")
     @ResponseStatus(HttpStatus.CREATED)
     public LoanResponse borrowBook(@RequestBody BorrowBookRequest request) {

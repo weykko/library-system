@@ -18,6 +18,15 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
+    public BookResponse getBook(Long id){
+        BookEntity bookEntity = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
+
+        return createBookResponse(bookEntity);
+    }
+
+    @Transactional
+    @Override
     public BookResponse createBook(BookRequest request) {
         //TODO: реализовать проверку на наличие аналогичной книги в библиотеке
 

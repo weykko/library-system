@@ -12,6 +12,8 @@ import java.util.List;
 @RequestMapping("/api/public/books")
 public class BookController {
 
+    private final BookService bookService;
+
     // TODO: реализовать пагинацию при поиске
     @GetMapping
     public List<BookResponse> getBooks(@RequestParam String q) {
@@ -20,6 +22,6 @@ public class BookController {
 
     @GetMapping("/{id}")
     public BookResponse getBook(@PathVariable Long id) {
-
+        return bookService.getBook(id);
     }
 }
