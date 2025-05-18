@@ -16,7 +16,17 @@ import java.util.List;
 public class AdminLoanController {
 
     @GetMapping
-    public List<LoanResponse> getLoans() {
+    public List<LoanResponse> getAllLoans() {
+
+    }
+
+    @GetMapping("/{id}")
+    public LoanResponse getLoanById(@PathVariable Long id) {
+
+    }
+
+    @GetMapping("/overdue")
+    public List<LoanResponse> getOverdueLoans() {
 
     }
 
@@ -26,18 +36,8 @@ public class AdminLoanController {
 
     }
 
-    @PostMapping("/return")
-    public ReturnBookResponse returnBook(@RequestBody ReturnBookRequest request) {
-
-    }
-
-    @GetMapping("/overdue")
-    public List<LoanResponse> getOverdueLoans() {
-
-    }
-
-    @GetMapping("/{id}")
-    public LoanResponse getLoanById(@PathVariable Long id) {
+    @PostMapping("/{id}/return")
+    public ReturnBookResponse returnBook(@PathVariable Long id) {
 
     }
 }
