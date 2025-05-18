@@ -6,7 +6,7 @@ import com.weykko.librarysystem.entity.BookEntity;
 import com.weykko.librarysystem.exception.BookNotFoundException;
 import com.weykko.librarysystem.repository.BookRepository;
 import com.weykko.librarysystem.service.BookService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

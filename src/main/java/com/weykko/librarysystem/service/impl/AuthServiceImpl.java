@@ -5,7 +5,7 @@ import com.weykko.librarysystem.dto.auth.RegisterResponse;
 import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.AuthService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

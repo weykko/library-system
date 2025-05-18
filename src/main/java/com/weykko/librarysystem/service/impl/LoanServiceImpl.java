@@ -14,7 +14,7 @@ import com.weykko.librarysystem.repository.BookRepository;
 import com.weykko.librarysystem.repository.LoanRepository;
 import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.LoanService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
