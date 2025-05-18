@@ -11,5 +11,8 @@ public class BorrowBookRequest {
 
     private Long bookId;
 
+    //TODO: разорбраться в каком виде принимать дату
     private LocalDate dueDate;
+
+    private Integer loanLength;
 }
