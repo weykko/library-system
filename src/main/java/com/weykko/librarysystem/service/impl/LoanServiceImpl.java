@@ -8,11 +8,13 @@ import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.entity.enums.BookStatus;
 import com.weykko.librarysystem.entity.enums.LoanStatus;
 import com.weykko.librarysystem.exception.BookNotAvailableException;
+import com.weykko.librarysystem.exception.LoanNotFoundException;
 import com.weykko.librarysystem.exception.UserNotFoundException;
 import com.weykko.librarysystem.repository.BookRepository;
 import com.weykko.librarysystem.repository.LoanRepository;
 import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.LoanService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,7 @@ public class LoanServiceImpl implements LoanService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
 
+    @Transactional
     @Override
     public LoanResponse borrowBook(BorrowBookRequest request) {
         UserEntity userEntity = userRepository.findById(request.getUserId())
@@ -49,10 +52,10 @@ public class LoanServiceImpl implements LoanService {
 
         loanRepository.save(loanEntity);
 
-        //TODO: реализовать создание через маппер mapstruct
-        return null;
+        return LoanResponse.fromEntity(loanEntity);
     }
 
+    @Transactional
     @Override
     public void returnBook(Long id) {
 
@@ -60,21 +63,33 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public LoanResponse getLoanById(Long id) {
-        return null;
+        return loanRepository.findById(id)
+                .map(LoanResponse::fromEntity)
+                .orElseThrow(() -> new LoanNotFoundException(id));
     }
 
     @Override
     public List<LoanResponse> getAllLoans() {
-        return List.of();
+        return loanRepository.findAll().stream()
+                .map(LoanResponse::fromEntity)
+                .toList();
     }
 
     @Override
     public List<LoanResponse> getOverdueLoans() {
-        return List.of();
+        return loanRepository.findOverdueLoans(LocalDateTime.now(), LoanStatus.OVERDUE).stream()
+                .map(LoanResponse::fromEntity)
+                .toList();
     }
 
     @Override
-    public List<LoanResponse> getUserLoans(Long id) {
-        return List.of();
+    public List<LoanResponse> getUserLoans(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new UserNotFoundException(userId);
+        }
+
+        return loanRepository.findByUserId(userId).stream()
+                .map(LoanResponse::fromEntity)
+                .toList();
     }
 }

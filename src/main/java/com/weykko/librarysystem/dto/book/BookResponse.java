@@ -2,12 +2,12 @@ package com.weykko.librarysystem.dto.book;
 
 import com.weykko.librarysystem.entity.enums.BookStatus;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
+@Builder
 public class BookResponse {
 
     private Long id;
@@ -20,6 +20,6 @@ public class BookResponse {
 
     private String isbn;
 
-    private BookStatus bookStatus;
+    private BookStatus status;
 
 }

@@ -22,7 +22,7 @@ public class BookServiceImpl implements BookService {
         BookEntity bookEntity = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
 
-        return createBookResponse(bookEntity);
+        return toResponse(bookEntity);
     }
 
     @Transactional
@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService {
 
         bookRepository.save(bookEntity);
 
-        return createBookResponse(bookEntity);
+        return toResponse(bookEntity);
     }
 
     @Transactional
@@ -55,7 +55,7 @@ public class BookServiceImpl implements BookService {
 
         bookRepository.save(bookEntity);
 
-        return createBookResponse(bookEntity);
+        return toResponse(bookEntity);
     }
 
     @Transactional
@@ -67,13 +67,14 @@ public class BookServiceImpl implements BookService {
         bookRepository.delete(book);
     }
 
-    private BookResponse createBookResponse(BookEntity bookEntity) {
-        return new BookResponse(
-                bookEntity.getId(),
-                bookEntity.getTitle(),
-                bookEntity.getAuthor(),
-                bookEntity.getReleaseDate(),
-                bookEntity.getIsbn(),
-                bookEntity.getStatus());
+    private BookResponse toResponse(BookEntity bookEntity) {
+        return BookResponse.builder()
+                .id(bookEntity.getId())
+                .title(bookEntity.getTitle())
+                .author(bookEntity.getAuthor())
+                .releaseDate(bookEntity.getReleaseDate())
+                .isbn(bookEntity.getIsbn())
+                .status(bookEntity.getStatus())
+                .build();
     }
 }
