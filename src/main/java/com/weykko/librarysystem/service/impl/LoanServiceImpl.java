@@ -58,7 +58,19 @@ public class LoanServiceImpl implements LoanService {
     @Transactional
     @Override
     public void returnBook(Long id) {
+        LoanEntity loanEntity = loanRepository.findById(id)
+                .orElseThrow(() -> new LoanNotFoundException(id));
 
+        //TODO: Добавить проверку возвращена ли книга раньше
+
+        loanEntity.setReturnDate(LocalDateTime.now());
+        loanEntity.setStatus(LoanStatus.RETURNED);
+
+        BookEntity bookEntity = loanEntity.getBook();
+        bookEntity.setStatus(BookStatus.AVAILABLE);
+        bookRepository.save(bookEntity);
+
+        loanRepository.save(loanEntity);
     }
 
     @Override
