@@ -1,5 +1,7 @@
 package com.weykko.librarysystem.dto.user;
 
+import com.weykko.librarysystem.dto.loan.LoanResponse;
+import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.entity.enums.UserRole;
 import lombok.AllArgsConstructor;
 
@@ -21,4 +23,16 @@ public class UserResponse {
     private String phoneNumber;
 
     private UserRole role;
+
+    public static UserResponse fromEntity(UserEntity userEntity) {
+        return new UserResponse(
+                userEntity.getId(),
+                userEntity.getFirstName(),
+                userEntity.getLastName(),
+                userEntity.getBirthDate(),
+                userEntity.getEmail(),
+                userEntity.getPhoneNumber(),
+                userEntity.getRole()
+        );
+    }
 }

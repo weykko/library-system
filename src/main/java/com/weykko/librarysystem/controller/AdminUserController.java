@@ -26,6 +26,9 @@ public class AdminUserController {
 
     }
 
+    // Позже этот эндпоинт возможно перестанет быть нужен
+    // Появится общий поиск займов c фильтрами
+    // GET /api/admin/loans?userId=5&status=OVERDUE
     @GetMapping("/{id}/loans")
     public List<LoanResponse> getUserLoans(@PathVariable Long id) {
 
