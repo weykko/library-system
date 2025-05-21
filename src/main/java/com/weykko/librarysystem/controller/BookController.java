@@ -5,6 +5,7 @@ import com.weykko.librarysystem.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class BookController {
     // TODO: реализовать пагинацию при поиске
     @GetMapping
     public List<BookResponse> getBooks(@RequestParam String q) {
-
+        return List.of();
     }
 
     @GetMapping("/{id}")

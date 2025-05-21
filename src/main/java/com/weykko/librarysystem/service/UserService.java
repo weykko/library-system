@@ -11,5 +11,5 @@ public interface UserService {
 
     void deleteUser(Long id);
 
-    // Будет активно дополнятся
+    UserResponse getCurrentUserProfile();
 }
