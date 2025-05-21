@@ -1,8 +1,10 @@
 package com.weykko.librarysystem.dto.user;
 
+import lombok.Data;
+
 import java.time.LocalDate;
 
-//TODO: Разобраться нужно ли это
+@Data
 public class UserRequest {
 
     private String email;
