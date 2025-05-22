@@ -18,18 +18,18 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    public UserResponse getUser(@AuthenticationPrincipal UserDetails userDetails) {
-
-    }
-
-    @PutMapping("/update")
-    public UserResponse updateUser(@RequestBody UserRequest request, @AuthenticationPrincipal UserDetails userDetails) {
-
-    }
-
-    @GetMapping("/loans")
-    public List<LoanResponse> getLoans(@AuthenticationPrincipal UserDetails userDetails) {
-
-    }
+//    @GetMapping
+//    public UserResponse getUser(@AuthenticationPrincipal UserDetails userDetails) {
+//
+//    }
+//
+//    @PutMapping("/update")
+//    public UserResponse updateUser(@RequestBody UserRequest request, @AuthenticationPrincipal UserDetails userDetails) {
+//
+//    }
+//
+//    @GetMapping("/loans")
+//    public List<LoanResponse> getLoans(@AuthenticationPrincipal UserDetails userDetails) {
+//
+//    }
 }

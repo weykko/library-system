@@ -3,9 +3,11 @@ package com.weykko.librarysystem.dto.loan;
 import com.weykko.librarysystem.entity.LoanEntity;
 import com.weykko.librarysystem.entity.enums.LoanStatus;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 @AllArgsConstructor
 public class LoanResponse {
 

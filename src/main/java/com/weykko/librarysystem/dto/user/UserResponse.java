@@ -4,9 +4,11 @@ import com.weykko.librarysystem.dto.loan.LoanResponse;
 import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.entity.enums.UserRole;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.time.LocalDate;
 
+@Data
 @AllArgsConstructor
 public class UserResponse {
 
