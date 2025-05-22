@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
         updateField(userEntity.getPhoneNumber(), request.getPhoneNumber(), userEntity::setPhoneNumber);
 
         if (request.getEmail() != null) {
+            //TODO: поменять ошибку
             if (userRepository.existsByEmail(request.getEmail())) throw new UserNotFoundException(1L);
             updateField(userEntity.getEmail(), request.getEmail(), userEntity::setFirstName);
         }
