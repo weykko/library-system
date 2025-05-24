@@ -40,12 +40,10 @@ public class UserServiceImpl implements UserService {
         updateField(userEntity.getBirthDate(), request.getBirthDate(), userEntity::setBirthDate);
         updateField(userEntity.getPhoneNumber(), request.getPhoneNumber(), userEntity::setPhoneNumber);
 
-        if (request.getEmail() != null) {
-            if (userRepository.existsByEmail(request.getEmail())) throw new EmailAlreadyUsed(request.getEmail());
-            updateField(userEntity.getEmail(), request.getEmail(), userEntity::setFirstName);
-        }
+        if (userRepository.existsByEmail(request.getEmail())) throw new EmailAlreadyUsed(request.getEmail());
+        updateField(userEntity.getEmail(), request.getEmail(), userEntity::setFirstName);
 
-        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+        if (request.getPassword() != null  && !request.getPassword().isBlank()) {
             updateField(
                     userEntity.getPassword(),
                     passwordEncoder.encode(request.getPassword()),
@@ -67,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private <T> void updateField(T currentValue, T newValue, Consumer<T> setter) {
-        if (!Objects.equals(currentValue, newValue)) {
+        if (newValue != null && !Objects.equals(currentValue, newValue)) {
             setter.accept(newValue);
         }
     }

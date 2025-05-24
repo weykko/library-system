@@ -39,7 +39,7 @@ public class AdminUserController {
         return loanService.getUserLoans(id);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public UserResponse updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
         return userService.updateUser(id, request);
     }
