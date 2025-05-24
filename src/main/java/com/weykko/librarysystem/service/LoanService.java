@@ -1,12 +1,12 @@
 package com.weykko.librarysystem.service;
 
-import com.weykko.librarysystem.dto.loan.BorrowBookRequest;
+import com.weykko.librarysystem.dto.loan.BorrowRequest;
 import com.weykko.librarysystem.dto.loan.LoanResponse;
 
 import java.util.List;
 
 public interface LoanService {
-    LoanResponse borrowBook(BorrowBookRequest request);
+    LoanResponse borrowBook(BorrowRequest request);
 
     void returnBook(Long id);
 

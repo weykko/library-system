@@ -1,7 +1,6 @@
 package com.weykko.librarysystem.controller;
 
 import com.weykko.librarysystem.dto.loan.LoanResponse;
-import com.weykko.librarysystem.dto.user.DeleteUserResponse;
 import com.weykko.librarysystem.dto.user.UserRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.service.LoanService;

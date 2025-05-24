@@ -1,9 +1,7 @@
 package com.weykko.librarysystem.controller;
 
-import com.weykko.librarysystem.dto.loan.BorrowBookRequest;
+import com.weykko.librarysystem.dto.loan.BorrowRequest;
 import com.weykko.librarysystem.dto.loan.LoanResponse;
-import com.weykko.librarysystem.dto.loan.ReturnBookRequest;
-import com.weykko.librarysystem.dto.loan.ReturnBookResponse;
 import com.weykko.librarysystem.service.LoanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,7 +33,7 @@ public class AdminLoanController {
 
     @PostMapping("/borrow")
     @ResponseStatus(HttpStatus.CREATED)
-    public LoanResponse borrowBook(@RequestBody BorrowBookRequest request) {
+    public LoanResponse borrowBook(@RequestBody BorrowRequest request) {
         return loanService.borrowBook(request);
     }
 

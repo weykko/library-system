@@ -1,6 +1,6 @@
 package com.weykko.librarysystem.service.impl;
 
-import com.weykko.librarysystem.dto.loan.BorrowBookRequest;
+import com.weykko.librarysystem.dto.loan.BorrowRequest;
 import com.weykko.librarysystem.dto.loan.LoanResponse;
 import com.weykko.librarysystem.entity.BookEntity;
 import com.weykko.librarysystem.entity.LoanEntity;
@@ -31,7 +31,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Transactional
     @Override
-    public LoanResponse borrowBook(BorrowBookRequest request) {
+    public LoanResponse borrowBook(BorrowRequest request) {
         UserEntity userEntity = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new UserNotFoundException(request.getUserId()));
 

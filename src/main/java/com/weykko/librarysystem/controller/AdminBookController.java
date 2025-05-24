@@ -2,7 +2,6 @@ package com.weykko.librarysystem.controller;
 
 import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
-import com.weykko.librarysystem.dto.book.DeleteBookResponse;
 import com.weykko.librarysystem.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

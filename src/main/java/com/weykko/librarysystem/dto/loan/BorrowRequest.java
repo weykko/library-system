@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class BorrowBookRequest {
+public class BorrowRequest {
 
     private Long userId;
 
