@@ -3,6 +3,7 @@ package com.weykko.librarysystem.service.impl;
 import com.weykko.librarysystem.dto.user.UserRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
+import com.weykko.librarysystem.exception.EmailAlreadyUsed;
 import com.weykko.librarysystem.exception.UserNotFoundException;
 import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.UserService;
@@ -40,8 +41,7 @@ public class UserServiceImpl implements UserService {
         updateField(userEntity.getPhoneNumber(), request.getPhoneNumber(), userEntity::setPhoneNumber);
 
         if (request.getEmail() != null) {
-            //TODO: поменять ошибку
-            if (userRepository.existsByEmail(request.getEmail())) throw new UserNotFoundException(1L);
+            if (userRepository.existsByEmail(request.getEmail())) throw new EmailAlreadyUsed(request.getEmail());
             updateField(userEntity.getEmail(), request.getEmail(), userEntity::setFirstName);
         }
 
