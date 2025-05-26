@@ -1,5 +1,7 @@
 package com.weykko.librarysystem.service.impl;
 
+import com.weykko.librarysystem.dto.auth.LoginRequest;
+import com.weykko.librarysystem.dto.auth.LoginResponse;
 import com.weykko.librarysystem.dto.auth.RegisterRequest;
 import com.weykko.librarysystem.dto.auth.RegisterResponse;
 import com.weykko.librarysystem.entity.UserEntity;
@@ -35,5 +37,10 @@ public class AuthServiceImpl implements AuthService {
         // 🐘 Заглушка
         //TODO: переделать
         return new RegisterResponse();
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest request) {
+        return null;
     }
 }
