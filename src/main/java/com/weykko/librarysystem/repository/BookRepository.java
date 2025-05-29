@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
-
+    // Будующая пагинация
 //    @Query("SELECT b " +
 //            "FROM BookEntity b " +
 //            "WHERE " +

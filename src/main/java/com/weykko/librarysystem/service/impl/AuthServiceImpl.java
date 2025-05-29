@@ -5,6 +5,7 @@ import com.weykko.librarysystem.dto.auth.AuthResponse;
 import com.weykko.librarysystem.dto.auth.RegisterRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
+import com.weykko.librarysystem.exception.EmailAlreadyUsedException;
 import com.weykko.librarysystem.mapper.UserMapper;
 import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.AuthService;
@@ -27,7 +28,10 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     @Override
     public UserResponse register(RegisterRequest request) {
-        //TODO: добавить проверку по email
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new EmailAlreadyUsedException(request.getEmail());
+        }
+
         UserEntity userEntity = userMapper.toEntity(request);
         userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
 

@@ -32,7 +32,7 @@ public class AdminUserController {
 
     // Временный метод без поиска
     @GetMapping
-    public List<UserResponse> getUsers(@RequestParam String q) {
+    public List<UserResponse> getUsers() {
         return userService.getAllUsers();
     }
 

@@ -16,7 +16,7 @@ public interface LoanRepository extends JpaRepository<LoanEntity, Long> {
 
     @Query("SELECT l FROM LoanEntity l " +
             "WHERE l.dueDate < :currentDate " +
-            "AND l.status = :status")
+            "OR l.status = :status")
     List<LoanEntity> findOverdueLoans(
             @Param("currentDate") LocalDateTime currentDate,
             @Param("status") LoanStatus status
