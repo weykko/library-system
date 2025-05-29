@@ -5,6 +5,7 @@ import com.weykko.librarysystem.dto.auth.AuthResponse;
 import com.weykko.librarysystem.dto.auth.RegisterRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
+import com.weykko.librarysystem.entity.enums.UserRole;
 import com.weykko.librarysystem.exception.EmailAlreadyUsedException;
 import com.weykko.librarysystem.mapper.UserMapper;
 import com.weykko.librarysystem.repository.UserRepository;
@@ -33,6 +34,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         UserEntity userEntity = userMapper.toEntity(request);
+        userEntity.setRole(UserRole.ROLE_USER);
         userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(userEntity);
