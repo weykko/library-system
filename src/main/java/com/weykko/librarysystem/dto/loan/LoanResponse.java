@@ -23,14 +23,5 @@ public class LoanResponse {
 
     private LoanStatus status;
 
-    public static LoanResponse fromEntity(LoanEntity loanEntity) {
-        return new LoanResponse(
-                loanEntity.getId(),
-                loanEntity.getUser().getId(),
-                loanEntity.getBook().getId(),
-                loanEntity.getBorrowDate(),
-                loanEntity.getDueDate(),
-                loanEntity.getStatus()
-        );
-    }
+
 }

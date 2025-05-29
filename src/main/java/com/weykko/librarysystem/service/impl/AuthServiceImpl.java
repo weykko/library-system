@@ -5,6 +5,7 @@ import com.weykko.librarysystem.dto.auth.LoginResponse;
 import com.weykko.librarysystem.dto.auth.RegisterRequest;
 import com.weykko.librarysystem.dto.auth.RegisterResponse;
 import com.weykko.librarysystem.entity.UserEntity;
+import com.weykko.librarysystem.mapper.UserMapper;
 import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.AuthService;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,19 +19,14 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Transactional
     @Override
     public RegisterResponse register(RegisterRequest request) {
         //TODO: добавить проверку по email
-        UserEntity userEntity = new UserEntity();
-
-        userEntity.setEmail(request.getEmail());
+        UserEntity userEntity = userMapper.toEntity(request);
         userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
-        userEntity.setFirstName(request.getFirstName());
-        userEntity.setLastName(request.getLastName());
-        userEntity.setBirthDate(request.getBirthDate());
-        userEntity.setPhoneNumber(request.getPhoneNumber());
 
         userRepository.save(userEntity);
 

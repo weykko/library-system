@@ -10,6 +10,7 @@ import com.weykko.librarysystem.entity.enums.LoanStatus;
 import com.weykko.librarysystem.exception.BookNotAvailableException;
 import com.weykko.librarysystem.exception.LoanNotFoundException;
 import com.weykko.librarysystem.exception.UserNotFoundException;
+import com.weykko.librarysystem.mapper.LoanMapper;
 import com.weykko.librarysystem.repository.BookRepository;
 import com.weykko.librarysystem.repository.LoanRepository;
 import com.weykko.librarysystem.repository.UserRepository;
@@ -28,6 +29,7 @@ public class LoanServiceImpl implements LoanService {
     private final LoanRepository loanRepository;
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
+    private final LoanMapper loanMapper;
 
     @Transactional
     @Override
@@ -52,7 +54,7 @@ public class LoanServiceImpl implements LoanService {
 
         loanRepository.save(loanEntity);
 
-        return LoanResponse.fromEntity(loanEntity);
+        return loanMapper.toResponse(loanEntity);
     }
 
     @Transactional
@@ -76,21 +78,21 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public LoanResponse getLoanById(Long id) {
         return loanRepository.findById(id)
-                .map(LoanResponse::fromEntity)
+                .map(loanMapper::toResponse)
                 .orElseThrow(() -> new LoanNotFoundException(id));
     }
 
     @Override
     public List<LoanResponse> getAllLoans() {
         return loanRepository.findAll().stream()
-                .map(LoanResponse::fromEntity)
+                .map(loanMapper::toResponse)
                 .toList();
     }
 
     @Override
     public List<LoanResponse> getOverdueLoans() {
         return loanRepository.findOverdueLoans(LocalDateTime.now(), LoanStatus.OVERDUE).stream()
-                .map(LoanResponse::fromEntity)
+                .map(loanMapper::toResponse)
                 .toList();
     }
 
@@ -101,7 +103,7 @@ public class LoanServiceImpl implements LoanService {
         }
 
         return loanRepository.findByUserId(userId).stream()
-                .map(LoanResponse::fromEntity)
+                .map(loanMapper::toResponse)
                 .toList();
     }
 }

@@ -4,6 +4,7 @@ import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
 import com.weykko.librarysystem.entity.BookEntity;
 import com.weykko.librarysystem.exception.BookNotFoundException;
+import com.weykko.librarysystem.mapper.BookMapper;
 import com.weykko.librarysystem.repository.BookRepository;
 import com.weykko.librarysystem.service.BookService;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
     @Transactional
     @Override
@@ -22,7 +24,7 @@ public class BookServiceImpl implements BookService {
         BookEntity bookEntity = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
 
-        return toResponse(bookEntity);
+        return bookMapper.toResponse(bookEntity);
     }
 
     @Transactional
@@ -30,16 +32,11 @@ public class BookServiceImpl implements BookService {
     public BookResponse createBook(BookRequest request) {
         //TODO: реализовать проверку на наличие аналогичной книги в библиотеке
 
-        BookEntity bookEntity = new BookEntity();
-
-        bookEntity.setTitle(request.getTitle());
-        bookEntity.setAuthor(request.getAuthor());
-        bookEntity.setReleaseDate(request.getReleaseDate());
-        bookEntity.setIsbn(request.getIsbn());
+        BookEntity bookEntity = bookMapper.toEntity(request);
 
         bookRepository.save(bookEntity);
 
-        return toResponse(bookEntity);
+        return bookMapper.toResponse(bookEntity);
     }
 
     @Transactional
@@ -55,7 +52,7 @@ public class BookServiceImpl implements BookService {
 
         bookRepository.save(bookEntity);
 
-        return toResponse(bookEntity);
+        return bookMapper.toResponse(bookEntity);
     }
 
     @Transactional
@@ -65,16 +62,5 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new BookNotFoundException(id));
 
         bookRepository.delete(book);
-    }
-
-    private BookResponse toResponse(BookEntity bookEntity) {
-        return BookResponse.builder()
-                .id(bookEntity.getId())
-                .title(bookEntity.getTitle())
-                .author(bookEntity.getAuthor())
-                .releaseDate(bookEntity.getReleaseDate())
-                .isbn(bookEntity.getIsbn())
-                .status(bookEntity.getStatus())
-                .build();
     }
 }

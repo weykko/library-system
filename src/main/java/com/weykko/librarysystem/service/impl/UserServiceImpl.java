@@ -5,6 +5,7 @@ import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.exception.EmailAlreadyUsed;
 import com.weykko.librarysystem.exception.UserNotFoundException;
+import com.weykko.librarysystem.mapper.UserMapper;
 import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.UserService;
 import jakarta.transaction.Transactional;
@@ -20,12 +21,13 @@ import java.util.function.Consumer;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse getUser(Long id) {
         return userRepository.findById(id)
-                .map(UserResponse::fromEntity)
+                .map(userMapper::toResponse)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
@@ -51,7 +53,7 @@ public class UserServiceImpl implements UserService {
             );
         }
 
-        return UserResponse.fromEntity(userEntity);
+        return userMapper.toResponse(userEntity);
     }
 
     //TODO: реализовать soft delete
