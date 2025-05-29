@@ -21,6 +21,8 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
 
+    // Решил пока не реализовывать аутентификацию, так как ее не было на курсе
+
     @Transactional
     @Override
     public RegisterResponse register(RegisterRequest request) {

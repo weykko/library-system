@@ -3,10 +3,11 @@ package com.weykko.librarysystem.controller;
 import com.weykko.librarysystem.dto.loan.LoanResponse;
 import com.weykko.librarysystem.dto.user.UserRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
+import com.weykko.librarysystem.security.UserDetailsImpl;
+import com.weykko.librarysystem.service.LoanService;
 import com.weykko.librarysystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,19 +18,20 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final LoanService loanService;
 
     @GetMapping
-    public UserResponse getUser(@AuthenticationPrincipal UserDetails userDetails) {
-        return null;
+    public UserResponse getUser(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return userService.getUser(userDetails.getId());
     }
 
     @PatchMapping("/update")
-    public UserResponse updateUser(@RequestBody UserRequest request, @AuthenticationPrincipal UserDetails userDetails) {
-        return null;
+    public UserResponse updateUser(@RequestBody UserRequest request, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return userService.updateUser(userDetails.getId(), request);
     }
 
     @GetMapping("/loans")
-    public List<LoanResponse> getLoans(@AuthenticationPrincipal UserDetails userDetails) {
-        return List.of();
+    public List<LoanResponse> getLoans(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return loanService.getUserLoans(userDetails.getId());
     }
 }
