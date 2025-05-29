@@ -19,15 +19,21 @@ public class AdminUserController {
     private final UserService userService;
     private final LoanService loanService;
 
-    // TODO: реализовать пагинацию при поиске
-    @GetMapping
-    public List<UserResponse> getUsers(@RequestParam String q) {
-        return List.of();
-    }
-
     @GetMapping("/{id}")
     public UserResponse getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+        return userService.getUserById(id);
+    }
+
+    // TODO: реализовать пагинацию при поиске
+//    @GetMapping
+//    public List<UserResponse> getUsers(@RequestParam String q) {
+//        return List.of();
+//    }
+
+    // Временный метод без поиска
+    @GetMapping
+    public List<UserResponse> getUsers(@RequestParam String q) {
+        return userService.getAllUsers();
     }
 
     // Позже этот эндпоинт возможно перестанет быть нужен

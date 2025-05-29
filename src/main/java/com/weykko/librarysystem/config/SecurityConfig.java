@@ -17,7 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private static final String[] PUBLIC_URI = {
-            "/api/public/**"
+            "/api/public/**",
+            "/api/auth/**"
     };
 
     private static final String[] ADMIN_URI = {

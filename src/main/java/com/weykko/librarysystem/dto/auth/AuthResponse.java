@@ -1,6 +1,6 @@
 package com.weykko.librarysystem.dto.auth;
 
-public class LoginResponse {
+public class AuthResponse {
 
     private String accessToken;
 

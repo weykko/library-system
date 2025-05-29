@@ -20,9 +20,11 @@ public class UserController {
     private final UserService userService;
     private final LoanService loanService;
 
+    //Эндпоинта пока не актуальны, так как аутентификация пока не настроена
+
     @GetMapping
     public UserResponse getUser(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return userService.getUser(userDetails.getId());
+        return userService.getUserById(userDetails.getId());
     }
 
     @PatchMapping("/update")

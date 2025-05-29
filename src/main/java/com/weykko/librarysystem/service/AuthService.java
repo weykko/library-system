@@ -1,12 +1,12 @@
 package com.weykko.librarysystem.service;
 
 import com.weykko.librarysystem.dto.auth.LoginRequest;
-import com.weykko.librarysystem.dto.auth.LoginResponse;
+import com.weykko.librarysystem.dto.auth.AuthResponse;
 import com.weykko.librarysystem.dto.auth.RegisterRequest;
-import com.weykko.librarysystem.dto.auth.RegisterResponse;
+import com.weykko.librarysystem.dto.user.UserResponse;
 
 public interface AuthService {
-    RegisterResponse register(RegisterRequest request);
+    UserResponse register(RegisterRequest request);
 
-    LoginResponse login(LoginRequest request);
+    AuthResponse login(LoginRequest request);
 }

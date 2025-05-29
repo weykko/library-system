@@ -3,7 +3,7 @@ package com.weykko.librarysystem.service.impl;
 import com.weykko.librarysystem.dto.user.UserRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
-import com.weykko.librarysystem.exception.EmailAlreadyUsed;
+import com.weykko.librarysystem.exception.EmailAlreadyUsedException;
 import com.weykko.librarysystem.exception.UserNotFoundException;
 import com.weykko.librarysystem.mapper.UserMapper;
 import com.weykko.librarysystem.repository.UserRepository;
@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -25,10 +26,17 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponse getUser(Long id) {
+    public UserResponse getUserById(Long id) {
         return userRepository.findById(id)
                 .map(userMapper::toResponse)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @Override
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(userMapper::toResponse)
+                .toList();
     }
 
     @Transactional
@@ -42,7 +50,7 @@ public class UserServiceImpl implements UserService {
         updateField(userEntity.getBirthDate(), request.getBirthDate(), userEntity::setBirthDate);
         updateField(userEntity.getPhoneNumber(), request.getPhoneNumber(), userEntity::setPhoneNumber);
 
-        if (userRepository.existsByEmail(request.getEmail())) throw new EmailAlreadyUsed(request.getEmail());
+        if (userRepository.existsByEmail(request.getEmail())) throw new EmailAlreadyUsedException(request.getEmail());
         updateField(userEntity.getEmail(), request.getEmail(), userEntity::setFirstName);
 
         if (request.getPassword() != null  && !request.getPassword().isBlank()) {

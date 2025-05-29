@@ -16,9 +16,15 @@ public class BookController {
     private final BookService bookService;
 
     // TODO: реализовать пагинацию при поиске
+//    @GetMapping
+//    public List<BookResponse> getBooks(@RequestParam String q) {
+//        return List.of();
+//    }
+
+    // Временный метод без поиска
     @GetMapping
-    public List<BookResponse> getBooks(@RequestParam String q) {
-        return List.of();
+    public List<BookResponse> getBooks() {
+        return bookService.getAllBooks();
     }
 
     @GetMapping("/{id}")

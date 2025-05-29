@@ -1,7 +1,7 @@
 package com.weykko.librarysystem.exception;
 
-public class EmailAlreadyUsed extends RuntimeException {
-    public EmailAlreadyUsed(String email) {
+public class EmailAlreadyUsedException extends RuntimeException {
+    public EmailAlreadyUsedException(String email) {
         super("Электронная почта: " + email + " уже используется");
     }
 }

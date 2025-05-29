@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
@@ -25,6 +27,13 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new BookNotFoundException(id));
 
         return bookMapper.toResponse(bookEntity);
+    }
+
+    @Override
+    public List<BookResponse> getAllBooks() {
+        return bookRepository.findAll().stream()
+                .map(bookMapper::toResponse)
+                .toList();
     }
 
     @Transactional

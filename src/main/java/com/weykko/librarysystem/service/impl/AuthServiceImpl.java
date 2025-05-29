@@ -1,9 +1,9 @@
 package com.weykko.librarysystem.service.impl;
 
 import com.weykko.librarysystem.dto.auth.LoginRequest;
-import com.weykko.librarysystem.dto.auth.LoginResponse;
+import com.weykko.librarysystem.dto.auth.AuthResponse;
 import com.weykko.librarysystem.dto.auth.RegisterRequest;
-import com.weykko.librarysystem.dto.auth.RegisterResponse;
+import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.mapper.UserMapper;
 import com.weykko.librarysystem.repository.UserRepository;
@@ -22,23 +22,22 @@ public class AuthServiceImpl implements AuthService {
     private final UserMapper userMapper;
 
     // Решил пока не реализовывать аутентификацию, так как ее не было на курсе
+    // TODO: разобраться в теме и реализовать позднее
 
     @Transactional
     @Override
-    public RegisterResponse register(RegisterRequest request) {
+    public UserResponse register(RegisterRequest request) {
         //TODO: добавить проверку по email
         UserEntity userEntity = userMapper.toEntity(request);
         userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(userEntity);
 
-        // 🐘 Заглушка
-        //TODO: переделать
-        return new RegisterResponse();
+        return userMapper.toResponse(userEntity);
     }
 
     @Override
-    public LoginResponse login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request) {
         return null;
     }
 }

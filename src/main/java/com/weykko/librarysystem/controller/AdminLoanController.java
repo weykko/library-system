@@ -16,6 +16,7 @@ public class AdminLoanController {
 
     private final LoanService loanService;
 
+    // TODO: реализовать пагинацию
     @GetMapping
     public List<LoanResponse> getAllLoans() {
         return loanService.getAllLoans();
