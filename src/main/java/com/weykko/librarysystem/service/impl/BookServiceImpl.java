@@ -8,6 +8,8 @@ import com.weykko.librarysystem.entity.BookEntity;
 import com.weykko.librarysystem.eventlistener.event.DatabaseChangedEvent;
 import com.weykko.librarysystem.exception.BookNotFoundException;
 import com.weykko.librarysystem.mapper.BookMapper;
+import com.weykko.librarysystem.metrics.LibraryMetrics;
+import com.weykko.librarysystem.metrics.Counter;
 import com.weykko.librarysystem.repository.BookRepository;
 import com.weykko.librarysystem.service.BookService;
 import org.springframework.context.ApplicationEventPublisher;
@@ -26,6 +28,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
+    private final LibraryMetrics libraryMetrics;
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Transactional
@@ -45,6 +48,7 @@ public class BookServiceImpl implements BookService {
                 .toList();
     }
 
+    @Counter("book")
     @Transactional
     @Override
     public BookResponse createBook(BookRequest request) {

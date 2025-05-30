@@ -2,6 +2,7 @@ package com.weykko.librarysystem.controller;
 
 import com.weykko.librarysystem.dto.loan.BorrowRequest;
 import com.weykko.librarysystem.dto.loan.LoanResponse;
+import com.weykko.librarysystem.metrics.Counter;
 import com.weykko.librarysystem.service.LoanService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class AdminLoanController {
         return loanService.getOverdueLoans();
     }
 
+    @Counter("loan")
     @PostMapping("/borrow")
     @ResponseStatus(HttpStatus.CREATED)
     public LoanResponse borrowBook(@RequestBody @Valid BorrowRequest request) {

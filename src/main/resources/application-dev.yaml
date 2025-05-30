@@ -21,3 +21,9 @@ spring:
 
 timeout:
   default-interval: 3
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

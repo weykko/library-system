@@ -3,6 +3,7 @@ package com.weykko.librarysystem.controller;
 import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
 import com.weykko.librarysystem.dto.book.BookUpdateRequest;
+import com.weykko.librarysystem.metrics.Counter;
 import com.weykko.librarysystem.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

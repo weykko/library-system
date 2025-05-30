@@ -4,6 +4,7 @@ import com.weykko.librarysystem.dto.auth.LoginRequest;
 import com.weykko.librarysystem.dto.auth.AuthResponse;
 import com.weykko.librarysystem.dto.auth.RegisterRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
+import com.weykko.librarysystem.metrics.Counter;
 import com.weykko.librarysystem.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @Counter("user")
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse register(@RequestBody @Valid RegisterRequest request) {
