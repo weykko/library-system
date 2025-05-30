@@ -2,6 +2,7 @@ package com.weykko.librarysystem.service.impl;
 
 import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
+import com.weykko.librarysystem.dto.book.BookUpdateRequest;
 import com.weykko.librarysystem.entity.BookEntity;
 import com.weykko.librarysystem.exception.BookNotFoundException;
 import com.weykko.librarysystem.mapper.BookMapper;
@@ -52,7 +53,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public BookResponse updateBook(Long id, BookRequest request) {
+    public BookResponse updateBook(Long id, BookUpdateRequest request) {
         BookEntity bookEntity = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
 

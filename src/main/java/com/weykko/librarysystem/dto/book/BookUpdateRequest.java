@@ -1,6 +1,5 @@
 package com.weykko.librarysystem.dto.book;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -8,18 +7,15 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class BookRequest {
+public class BookUpdateRequest {
 
-    @NotBlank(message = "Title is required")
     private String title;
 
-    @NotBlank(message = "Author is required")
     private String author;
 
     @Past(message = "Release date must be correct")
     private LocalDate releaseDate;
 
-    @NotBlank(message = "ISBN is required")
     @Pattern(regexp = "^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$", message = "Invalid ISBN format")
     private String isbn;
 }

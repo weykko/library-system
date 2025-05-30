@@ -6,6 +6,7 @@ import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.security.UserDetailsImpl;
 import com.weykko.librarysystem.service.LoanService;
 import com.weykko.librarysystem.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PatchMapping("/update")
-    public UserResponse updateUser(@RequestBody UserRequest request, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public UserResponse updateUser(@RequestBody @Valid UserRequest request, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return userService.updateUser(userDetails.getId(), request);
     }
 

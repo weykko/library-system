@@ -23,10 +23,10 @@ public class UserMapper {
     public UserResponse toResponse(UserEntity userEntity) {
         return new UserResponse(
                 userEntity.getId(),
+                userEntity.getEmail(),
                 userEntity.getFirstName(),
                 userEntity.getLastName(),
                 userEntity.getBirthDate(),
-                userEntity.getEmail(),
                 userEntity.getPhoneNumber(),
                 userEntity.getRole()
         );

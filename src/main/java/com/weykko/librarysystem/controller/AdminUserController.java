@@ -5,6 +5,7 @@ import com.weykko.librarysystem.dto.user.UserRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.service.LoanService;
 import com.weykko.librarysystem.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class AdminUserController {
     }
 
     @PatchMapping("/{id}")
-    public UserResponse updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
+    public UserResponse updateUser(@PathVariable Long id, @RequestBody @Valid UserRequest request) {
         return userService.updateUser(id, request);
     }
 

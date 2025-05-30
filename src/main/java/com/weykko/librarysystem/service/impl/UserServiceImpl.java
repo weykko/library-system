@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
 
         if (userRepository.existsByEmail(request.getEmail())) throw new EmailAlreadyUsedException(request.getEmail());
-        updateField(userEntity.getEmail(), request.getEmail(), userEntity::setFirstName);
+        updateField(userEntity.getEmail(), request.getEmail(), userEntity::setEmail);
 
         updateField(userEntity.getFirstName(), request.getFirstName(), userEntity::setFirstName);
         updateField(userEntity.getLastName(), request.getLastName(), userEntity::setLastName);
