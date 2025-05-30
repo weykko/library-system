@@ -18,7 +18,10 @@ public class SecurityConfig {
 
     private static final String[] PUBLIC_URI = {
             "/api/public/**",
-            "/api/auth/**"
+            "/api/auth/**",
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/swagger-resources/**"
     };
 
     private static final String[] ADMIN_URI = {
