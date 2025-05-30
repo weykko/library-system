@@ -1,0 +1,82 @@
+package com.weykko.librarysystem.service.impl;
+
+import com.weykko.librarysystem.dto.user.UserRequest;
+import com.weykko.librarysystem.dto.user.UserResponse;
+import com.weykko.librarysystem.entity.UserEntity;
+import com.weykko.librarysystem.exception.EmailAlreadyUsedException;
+import com.weykko.librarysystem.exception.UserNotFoundException;
+import com.weykko.librarysystem.mapper.UserMapper;
+import com.weykko.librarysystem.repository.UserRepository;
+import com.weykko.librarysystem.service.UserService;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+
+@Service
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserResponse getUserById(Long id) {
+        return userRepository.findById(id)
+                .map(userMapper::toResponse)
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @Override
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(userMapper::toResponse)
+                .toList();
+    }
+
+    @Transactional
+    @Override
+    public UserResponse updateUser(Long id, UserRequest request) {
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        if (userRepository.existsByEmail(request.getEmail())) throw new EmailAlreadyUsedException(request.getEmail());
+        updateField(userEntity.getEmail(), request.getEmail(), userEntity::setFirstName);
+
+        updateField(userEntity.getFirstName(), request.getFirstName(), userEntity::setFirstName);
+        updateField(userEntity.getLastName(), request.getLastName(), userEntity::setLastName);
+        updateField(userEntity.getBirthDate(), request.getBirthDate(), userEntity::setBirthDate);
+        updateField(userEntity.getPhoneNumber(), request.getPhoneNumber(), userEntity::setPhoneNumber);
+
+        if (request.getPassword() != null  && !request.getPassword().isBlank()) {
+            updateField(
+                    userEntity.getPassword(),
+                    passwordEncoder.encode(request.getPassword()),
+                    userEntity::setPassword
+            );
+        }
+
+        return userMapper.toResponse(userEntity);
+    }
+
+    //TODO: реализовать soft delete
+    @Transactional
+    @Override
+    public void deleteUser(Long id) {
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        userRepository.delete(userEntity);
+    }
+
+    private <T> void updateField(T currentValue, T newValue, Consumer<T> setter) {
+        if (newValue != null && !Objects.equals(currentValue, newValue)) {
+            setter.accept(newValue);
+        }
+    }
+}

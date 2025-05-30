@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: library-system
+  datasource:
+    url: jdbc:postgresql://localhost:5432/library_system
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
