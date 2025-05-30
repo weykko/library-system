@@ -1,5 +1,6 @@
 package com.weykko.librarysystem.service.impl;
 
+import com.weykko.librarysystem.aspect.Timeout;
 import com.weykko.librarysystem.dto.loan.BorrowRequest;
 import com.weykko.librarysystem.dto.loan.LoanResponse;
 import com.weykko.librarysystem.entity.BookEntity;
@@ -90,6 +91,7 @@ public class LoanServiceImpl implements LoanService {
                 .orElseThrow(() -> new LoanNotFoundException(id));
     }
 
+    @Timeout(10)
     @Override
     public List<LoanResponse> getAllLoans() {
         return loanRepository.findAll().stream()

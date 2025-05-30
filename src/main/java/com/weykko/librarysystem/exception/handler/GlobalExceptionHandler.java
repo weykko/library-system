@@ -105,6 +105,18 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    @ExceptionHandler(TimeoutException.class)
+    public ErrorResponse handleThrottlingException(TimeoutException ex, HttpServletRequest request) {
+        return new ErrorResponse(
+                Instant.now(),
+                HttpStatus.TOO_MANY_REQUESTS.value(),
+                ex.getMessage(),
+                request.getServletPath(),
+                null
+        );
+    }
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler
     public ErrorResponse handleException(Exception ex, HttpServletRequest request) {

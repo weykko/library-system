@@ -1,5 +1,6 @@
 package com.weykko.librarysystem.service.impl;
 
+import com.weykko.librarysystem.aspect.Timeout;
 import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
 import com.weykko.librarysystem.dto.book.BookUpdateRequest;
@@ -36,6 +37,7 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toResponse(bookEntity);
     }
 
+    @Timeout(10)
     @Override
     public List<BookResponse> getAllBooks() {
         return bookRepository.findAll().stream()

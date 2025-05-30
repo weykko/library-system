@@ -1,5 +1,6 @@
 package com.weykko.librarysystem.service.impl;
 
+import com.weykko.librarysystem.aspect.Timeout;
 import com.weykko.librarysystem.dto.user.UserRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
@@ -36,6 +37,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
+    @Timeout(10)
     @Override
     public List<UserResponse> getAllUsers() {
         return userRepository.findAll().stream()
