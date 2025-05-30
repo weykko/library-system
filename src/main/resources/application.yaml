@@ -20,4 +20,4 @@ spring:
       add-mappings: false
 
 timeout:
-  default-interval: 10
+  default-interval: 20
