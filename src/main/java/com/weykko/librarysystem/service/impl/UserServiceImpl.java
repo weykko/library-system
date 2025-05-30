@@ -3,6 +3,7 @@ package com.weykko.librarysystem.service.impl;
 import com.weykko.librarysystem.dto.user.UserRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
+import com.weykko.librarysystem.eventlistener.event.DatabaseChangedEvent;
 import com.weykko.librarysystem.exception.EmailAlreadyUsedException;
 import com.weykko.librarysystem.exception.UserNotFoundException;
 import com.weykko.librarysystem.mapper.UserMapper;
@@ -10,6 +11,7 @@ import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public UserResponse getUserById(Long id) {
@@ -61,6 +65,9 @@ public class UserServiceImpl implements UserService {
             );
         }
 
+        userRepository.save(userEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("books", userEntity.getId()));
+
         return userMapper.toResponse(userEntity);
     }
 
@@ -72,6 +79,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
 
         userRepository.delete(userEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("books", userEntity.getId()));
     }
 
     private <T> void updateField(T currentValue, T newValue, Consumer<T> setter) {

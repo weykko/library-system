@@ -7,6 +7,7 @@ import com.weykko.librarysystem.entity.LoanEntity;
 import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.entity.enums.BookStatus;
 import com.weykko.librarysystem.entity.enums.LoanStatus;
+import com.weykko.librarysystem.eventlistener.event.DatabaseChangedEvent;
 import com.weykko.librarysystem.exception.BookNotAvailableException;
 import com.weykko.librarysystem.exception.LoanNotFoundException;
 import com.weykko.librarysystem.exception.UserNotFoundException;
@@ -15,6 +16,7 @@ import com.weykko.librarysystem.repository.BookRepository;
 import com.weykko.librarysystem.repository.LoanRepository;
 import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.LoanService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,8 @@ public class LoanServiceImpl implements LoanService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
     private final LoanMapper loanMapper;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Transactional
     @Override
@@ -51,8 +55,10 @@ public class LoanServiceImpl implements LoanService {
 
         bookEntity.setStatus(BookStatus.BORROWED);
         bookRepository.save(bookEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("books", bookEntity.getId()));
 
         loanRepository.save(loanEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("loans", loanEntity.getId()));
 
         return loanMapper.toResponse(loanEntity);
     }
@@ -71,8 +77,10 @@ public class LoanServiceImpl implements LoanService {
         BookEntity bookEntity = loanEntity.getBook();
         bookEntity.setStatus(BookStatus.AVAILABLE);
         bookRepository.save(bookEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("books", bookEntity.getId()));
 
         loanRepository.save(loanEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("loans", loanEntity.getId()));
     }
 
     @Override

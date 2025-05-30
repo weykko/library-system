@@ -6,10 +6,12 @@ import com.weykko.librarysystem.dto.auth.RegisterRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.entity.enums.UserRole;
+import com.weykko.librarysystem.eventlistener.event.DatabaseChangedEvent;
 import com.weykko.librarysystem.exception.EmailAlreadyUsedException;
 import com.weykko.librarysystem.mapper.UserMapper;
 import com.weykko.librarysystem.repository.UserRepository;
 import com.weykko.librarysystem.service.AuthService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +24,8 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     // Решил пока не реализовывать аутентификацию, так как ее не было на курсе
     // TODO: разобраться в теме и реализовать позднее
@@ -37,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
         userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(userEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("users", userEntity.getId()));
 
         return userMapper.toResponse(userEntity);
     }

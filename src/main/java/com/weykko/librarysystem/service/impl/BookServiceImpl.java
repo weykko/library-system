@@ -4,10 +4,12 @@ import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
 import com.weykko.librarysystem.dto.book.BookUpdateRequest;
 import com.weykko.librarysystem.entity.BookEntity;
+import com.weykko.librarysystem.eventlistener.event.DatabaseChangedEvent;
 import com.weykko.librarysystem.exception.BookNotFoundException;
 import com.weykko.librarysystem.mapper.BookMapper;
 import com.weykko.librarysystem.repository.BookRepository;
 import com.weykko.librarysystem.service.BookService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Transactional
     @Override
@@ -47,6 +51,7 @@ public class BookServiceImpl implements BookService {
         BookEntity bookEntity = bookMapper.toEntity(request);
 
         bookRepository.save(bookEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("books", bookEntity.getId()));
 
         return bookMapper.toResponse(bookEntity);
     }
@@ -63,6 +68,7 @@ public class BookServiceImpl implements BookService {
         updateField(bookEntity.getIsbn(), request.getIsbn(), bookEntity::setIsbn);
 
         bookRepository.save(bookEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("books", bookEntity.getId()));
 
         return bookMapper.toResponse(bookEntity);
     }
@@ -70,10 +76,11 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void deleteBook(Long id) {
-        BookEntity book = bookRepository.findById(id)
+        BookEntity bookEntity = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
 
-        bookRepository.delete(book);
+        bookRepository.delete(bookEntity);
+        applicationEventPublisher.publishEvent(new DatabaseChangedEvent("books", bookEntity.getId()));
     }
 
     private <T> void updateField(T currentValue, T newValue, Consumer<T> setter) {
