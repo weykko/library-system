@@ -45,13 +45,13 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
+        if (userRepository.existsByEmail(request.getEmail())) throw new EmailAlreadyUsedException(request.getEmail());
+        updateField(userEntity.getEmail(), request.getEmail(), userEntity::setFirstName);
+
         updateField(userEntity.getFirstName(), request.getFirstName(), userEntity::setFirstName);
         updateField(userEntity.getLastName(), request.getLastName(), userEntity::setLastName);
         updateField(userEntity.getBirthDate(), request.getBirthDate(), userEntity::setBirthDate);
         updateField(userEntity.getPhoneNumber(), request.getPhoneNumber(), userEntity::setPhoneNumber);
-
-        if (userRepository.existsByEmail(request.getEmail())) throw new EmailAlreadyUsedException(request.getEmail());
-        updateField(userEntity.getEmail(), request.getEmail(), userEntity::setFirstName);
 
         if (request.getPassword() != null  && !request.getPassword().isBlank()) {
             updateField(

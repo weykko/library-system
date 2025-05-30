@@ -38,6 +38,7 @@ public class AdminLoanController {
         return loanService.borrowBook(request);
     }
 
+    //POST, PATCH или PUT? 🤔
     @PostMapping("/{id}/return")
     public void returnBook(@PathVariable Long id) {
         loanService.returnBook(id);

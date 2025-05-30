@@ -20,7 +20,7 @@ public class AdminBookController {
         return bookService.createBook(request);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public BookResponse updateBook(@PathVariable Long id, @RequestBody BookRequest request) {
         return bookService.updateBook(id, request);
     }

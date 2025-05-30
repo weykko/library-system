@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 @Service
 @RequiredArgsConstructor
@@ -54,10 +56,10 @@ public class BookServiceImpl implements BookService {
         BookEntity bookEntity = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
 
-        bookEntity.setTitle(request.getTitle());
-        bookEntity.setAuthor(request.getAuthor());
-        bookEntity.setReleaseDate(request.getReleaseDate());
-        bookEntity.setIsbn(request.getIsbn());
+        updateField(bookEntity.getTitle(), request.getTitle(), bookEntity::setTitle);
+        updateField(bookEntity.getAuthor(), request.getAuthor(), bookEntity::setAuthor);
+        updateField(bookEntity.getReleaseDate(), request.getReleaseDate(), bookEntity::setReleaseDate);
+        updateField(bookEntity.getIsbn(), request.getIsbn(), bookEntity::setIsbn);
 
         bookRepository.save(bookEntity);
 
@@ -71,5 +73,11 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new BookNotFoundException(id));
 
         bookRepository.delete(book);
+    }
+
+    private <T> void updateField(T currentValue, T newValue, Consumer<T> setter) {
+        if (newValue != null && !Objects.equals(currentValue, newValue)) {
+            setter.accept(newValue);
+        }
     }
 }

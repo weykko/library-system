@@ -25,7 +25,6 @@ public class AuthServiceImpl implements AuthService {
 
     // Решил пока не реализовывать аутентификацию, так как ее не было на курсе
     // TODO: разобраться в теме и реализовать позднее
-
     @Transactional
     @Override
     public UserResponse register(RegisterRequest request) {

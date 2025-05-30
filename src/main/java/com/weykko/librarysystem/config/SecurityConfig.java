@@ -55,13 +55,13 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(
                 User.builder()
                         .username("admin")
-                        .password("admin")
+                        .password("password")
                         .roles("ADMIN")
                         .passwordEncoder(passwordEncoder::encode)
                         .build(),
                 User.builder()
                         .username("user")
-                        .password("user")
+                        .password("password")
                         .roles("USER")
                         .passwordEncoder(passwordEncoder::encode)
                         .build()
