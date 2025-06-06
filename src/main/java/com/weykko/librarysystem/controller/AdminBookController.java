@@ -18,7 +18,7 @@ public class AdminBookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookResponse createBook(@RequestBody BookRequest request) {
+    public BookResponse createBook(@RequestBody @Valid BookRequest request) {
         return bookService.createBook(request);
     }
 

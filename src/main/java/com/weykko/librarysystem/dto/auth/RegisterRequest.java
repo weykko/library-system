@@ -17,7 +17,7 @@ public class RegisterRequest {
     @NotBlank(message = "Last name is required")
     private String lastName;
 
-    @NotBlank(message = "Birth date is required")
+    @NotNull(message = "Birth date is required")
     @Past(message = "Birth date must be a past date")
     private LocalDate birthDate;
 
