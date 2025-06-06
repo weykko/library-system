@@ -1,6 +1,6 @@
 package com.weykko.librarysystem.service;
 
-import com.weykko.librarysystem.dto.user.UserRequest;
+import com.weykko.librarysystem.dto.user.UserUpdateRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public interface UserService {
 
     List<UserResponse> getAllUsers();
 
-    UserResponse updateUser(Long id, UserRequest request);
+    UserResponse updateUser(Long id, UserUpdateRequest request);
 
     void deleteUser(Long id);
 }

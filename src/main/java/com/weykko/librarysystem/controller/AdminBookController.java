@@ -2,7 +2,9 @@ package com.weykko.librarysystem.controller;
 
 import com.weykko.librarysystem.dto.book.BookRequest;
 import com.weykko.librarysystem.dto.book.BookResponse;
+import com.weykko.librarysystem.dto.book.BookUpdateRequest;
 import com.weykko.librarysystem.service.BookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class AdminBookController {
     }
 
     @PatchMapping("/{id}")
-    public BookResponse updateBook(@PathVariable Long id, @RequestBody BookRequest request) {
+    public BookResponse updateBook(@PathVariable Long id, @RequestBody @Valid BookUpdateRequest request) {
         return bookService.updateBook(id, request);
     }
 

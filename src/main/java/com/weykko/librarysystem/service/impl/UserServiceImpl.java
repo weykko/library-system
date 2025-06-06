@@ -1,6 +1,6 @@
 package com.weykko.librarysystem.service.impl;
 
-import com.weykko.librarysystem.dto.user.UserRequest;
+import com.weykko.librarysystem.dto.user.UserUpdateRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.entity.UserEntity;
 import com.weykko.librarysystem.exception.EmailAlreadyUsedException;
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserResponse updateUser(Long id, UserRequest request) {
+    public UserResponse updateUser(Long id, UserUpdateRequest request) {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 

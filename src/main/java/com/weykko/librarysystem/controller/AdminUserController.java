@@ -1,7 +1,7 @@
 package com.weykko.librarysystem.controller;
 
 import com.weykko.librarysystem.dto.loan.LoanResponse;
-import com.weykko.librarysystem.dto.user.UserRequest;
+import com.weykko.librarysystem.dto.user.UserUpdateRequest;
 import com.weykko.librarysystem.dto.user.UserResponse;
 import com.weykko.librarysystem.service.LoanService;
 import com.weykko.librarysystem.service.UserService;
@@ -45,7 +45,7 @@ public class AdminUserController {
     }
 
     @PatchMapping("/{id}")
-    public UserResponse updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
+    public UserResponse updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
         return userService.updateUser(id, request);
     }
 
